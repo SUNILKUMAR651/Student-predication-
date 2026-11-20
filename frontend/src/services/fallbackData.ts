@@ -1,4 +1,4 @@
-{
+export const fallbackBundle = {
   "metrics": {
     "total_predictions": 48,
     "average_predicted_score_100": 55.3,
@@ -4495,4 +4495,5 @@
     "collection": "student_predictions",
     "message": "Connected to Cloud Firestore (Project: aaaa-22366). Real-time sync active."
   }
-}
+};
+export default fallbackBundle;

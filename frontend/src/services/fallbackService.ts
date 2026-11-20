@@ -1,4 +1,4 @@
-import fallbackBundle from './fallbackData.json';
+import { fallbackBundle } from './fallbackData';
 import { StudentInput, PredictionResult, SystemMetrics, DatasetInfo } from '../types';
 
 export function getFallback<T>(endpoint: string, options?: RequestInit): T | null {
@@ -63,7 +63,7 @@ export function getFallback<T>(endpoint: string, options?: RequestInit): T | nul
     const page = parseInt(urlParams.get('page') || '1', 10);
     const limit = parseInt(urlParams.get('limit') || '10', 10);
 
-    let items = fallbackBundle.predictions.items as any[];
+    let items = [...(fallbackBundle.predictions.items as any[])];
     if (search) {
       items = items.filter(
         (p) =>
