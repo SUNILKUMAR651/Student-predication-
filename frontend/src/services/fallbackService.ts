@@ -88,13 +88,29 @@ export function getFallback<T>(endpoint: string, options?: RequestInit): T | nul
     } as unknown as T;
   }
 
-  if (cleanEndpoint === '/api/predict' && options?.body) {
+  if (cleanEndpoint.startsWith('/api/predict')) {
     try {
-      const input: StudentInput = JSON.parse(options.body as string);
+      let input: StudentInput;
+      if (typeof options?.body === 'string') {
+        input = JSON.parse(options.body);
+      } else if (typeof options?.body === 'object' && options?.body !== null) {
+        input = options.body as unknown as StudentInput;
+      } else {
+        input = {
+          mode: 'early',
+          scale: '100',
+          studytime: 2,
+          absences: 4,
+          failures: 0,
+          age: 16,
+          sex: 'F',
+          health: 4,
+          goout: 3,
+        } as StudentInput;
+      }
       return calculateClientPrediction(input) as unknown as T;
     } catch {
-      // fallback to preloaded prediction
-      return fallbackBundle.predictions.items[0] as unknown as T;
+      return (fallbackBundle.predictions.items[0] || {}) as unknown as T;
     }
   }
 
@@ -104,7 +120,7 @@ export function getFallback<T>(endpoint: string, options?: RequestInit): T | nul
 /**
  * High-fidelity client regression calculation matching the trained GradientBoosting model.
  */
-function calculateClientPrediction(input: StudentInput): PredictionResult {
+export function calculateClientPrediction(input: StudentInput): PredictionResult {
   const isHistorical = input.mode === 'historical';
   let rawScore: number;
 

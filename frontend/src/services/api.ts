@@ -1,5 +1,5 @@
 import { StudentInput, PredictionResult, SystemMetrics, DatasetInfo } from '../types';
-import { getFallback } from './fallbackService';
+import { getFallback, calculateClientPrediction } from './fallbackService';
 
 // When served in browser or Vite dev server with proxy, relative URL '' avoids cross-origin PNA issues
 const API_BASE_URL = import.meta.env.VITE_API_URL !== undefined ? import.meta.env.VITE_API_URL : '';
@@ -61,10 +61,15 @@ class ApiService {
   }
 
   async predict(input: StudentInput): Promise<PredictionResult> {
-    return this.request('/api/predict', {
-      method: 'POST',
-      body: JSON.stringify(input),
-    });
+    try {
+      return await this.request('/api/predict', {
+        method: 'POST',
+        body: JSON.stringify(input),
+      });
+    } catch {
+      // Guaranteed fail-safe prediction calculation for offline / Vercel hosting
+      return calculateClientPrediction(input);
+    }
   }
 
   async getPredictions(params?: { search?: string; mode?: string; page?: number; limit?: number }): Promise<{
