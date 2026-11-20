@@ -55,20 +55,23 @@ export const Reports: React.FC<ReportsProps> = ({ scale }) => {
         </div>
 
         <div className="flex flex-wrap items-center gap-3">
-          <a
-            href={api.getExportCsvUrl()}
+          <button
+            onClick={async () => {
+              const res = await api.getPredictions({ limit: 100 });
+              api.exportPredictionsAsCsv(res.items);
+            }}
             className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-5 py-2.5 text-sm font-bold text-slate-700 shadow-sm hover:bg-slate-50 transition-all hover:scale-105"
           >
             <FileSpreadsheet className="h-4 w-4 text-emerald-600" />
             <span>Download CSV</span>
-          </a>
-          <a
-            href={api.getExportPdfUrl()}
+          </button>
+          <button
+            onClick={handlePrint}
             className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-5 py-2.5 text-sm font-bold text-white shadow-md shadow-blue-600/30 hover:bg-blue-500 transition-all hover:scale-105"
           >
             <FileText className="h-4 w-4" />
             <span>Download PDF Report</span>
-          </a>
+          </button>
           <button
             onClick={handlePrint}
             className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-bold text-slate-700 hover:bg-slate-50 transition-colors shadow-sm"

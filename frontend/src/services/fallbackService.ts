@@ -187,7 +187,7 @@ export function calculateClientPrediction(input: StudentInput): PredictionResult
   if (input.higher === 'yes') positiveFactors.push('Strong motivation for tertiary education');
   if ((input.G2 ?? 0) >= 14) positiveFactors.push('Strong foundation demonstrated in Mid-term Exam (G2)');
 
-  return {
+  const newPrediction: PredictionResult = {
     id: Date.now(),
     student_name: input.student_name || 'Anonymous Student',
     student_id: input.student_id || `STU-${Math.floor(1000 + Math.random() * 9000)}`,
@@ -210,4 +210,10 @@ export function calculateClientPrediction(input: StudentInput): PredictionResult
     positive_factors: positiveFactors,
     input_summary: input as any,
   };
+
+  // Prepend to stored fallback items so recent predictions and records update dynamically
+  fallbackBundle.predictions.items.unshift(newPrediction as any);
+  fallbackBundle.predictions.total += 1;
+
+  return newPrediction;
 }

@@ -94,13 +94,13 @@ export const StudentRecords: React.FC<StudentRecordsProps> = ({ scale, onOpenDat
             </button>
           )}
 
-          <a
-            href={api.getExportCsvUrl()}
+          <button
+            onClick={() => api.exportPredictionsAsCsv(records)}
             className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-5 py-2.5 text-sm font-bold text-slate-700 shadow-sm hover:bg-slate-50 transition-all hover:scale-105"
           >
             <Download className="h-4 w-4 text-slate-500" />
             <span>Export CSV</span>
-          </a>
+          </button>
         </div>
       </div>
 

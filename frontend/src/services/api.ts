@@ -16,8 +16,11 @@ class ApiService {
         ...options,
       });
 
-      if (!response.ok) {
-        // Fall back seamlessly to pre-calibrated data on static hosts (e.g. Vercel 404)
+      const contentType = response.headers.get('content-type') || '';
+      const isHtml = contentType.includes('text/html');
+
+      if (!response.ok || isHtml) {
+        // Fall back seamlessly to pre-calibrated data on static hosts (e.g. Vercel 404 or SPA rewrite)
         const fallback = getFallback<T>(endpoint, options);
         if (fallback !== null) {
           return fallback;
@@ -134,6 +137,31 @@ class ApiService {
 
   getExportCsvUrl(): string {
     return `${API_BASE_URL}/api/predictions/export/csv`;
+  }
+
+  exportPredictionsAsCsv(predictions: PredictionResult[]): void {
+    const headers = ['ID', 'Student Name', 'Student ID', 'Mode', 'Score', 'Scale', 'Grade Letter', 'Category', 'Created At'];
+    const rows = predictions.map(p => [
+      p.id,
+      `"${(p.student_name || 'Anonymous').replace(/"/g, '""')}"`,
+      `"${(p.student_id || '').replace(/"/g, '""')}"`,
+      p.mode,
+      p.display_score,
+      p.display_scale,
+      p.grade_letter,
+      `"${(p.performance_category || '').replace(/"/g, '""')}"`,
+      `"${p.created_at}"`
+    ]);
+    const csvContent = [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.setAttribute('href', url);
+    link.setAttribute('download', `edupredict_student_records_${new Date().toISOString().slice(0, 10)}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
   }
 
   getExportPdfUrl(): string {
