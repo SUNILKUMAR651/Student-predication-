@@ -1,0 +1,40 @@
+# Python & Virtual Environments
+venv/
+.venv/
+__pycache__/
+*.py[cod]
+*$py.class
+*.pytest_cache/
+.coverage
+htmlcov/
+
+# Node.js & Frontend Builds
+node_modules/
+frontend/node_modules/
+frontend/dist/
+dist/
+.npm/
+
+# Local Temporary & Cache Folders
+.tmp/
+*.tmp
+*.log
+
+# Databases & Local Artifacts (Generated at runtime)
+edupredict.db
+*.db
+backend/edupredict.db
+*.db-journal
+*.sqlite
+*.sqlite3
+
+# Firebase & Secret Keys
+serviceAccountKey.json
+*serviceAccountKey*.json
+firebase_credentials.json
+
+# Environment Secrets & Local Overrides
+.env
+.env.local
+.DS_Store
+Thumbs.db

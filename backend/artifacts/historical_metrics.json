@@ -1,0 +1,324 @@
+{
+  "mode": "historical",
+  "best_model": "GradientBoostingRegressor",
+  "selection_criterion": "Lowest 5-Fold Cross-Validation MAE on Training Data",
+  "training_sample_count": 519,
+  "test_sample_count": 130,
+  "target_column": "G3",
+  "target_scale": "0-20",
+  "test_metrics": {
+    "mae": 1.017,
+    "rmse": 1.246,
+    "r2": 0.761
+  },
+  "models_comparison": [
+    {
+      "model_name": "DummyRegressor (Baseline)",
+      "cv_mae_mean": 2.063,
+      "cv_mae_std": 0.064,
+      "cv_r2_mean": -0.024,
+      "cv_r2_std": 0.022,
+      "test_mae": 2.03,
+      "test_rmse": 2.549,
+      "test_r2": -0.0,
+      "is_selected": false
+    },
+    {
+      "model_name": "LinearRegression",
+      "cv_mae_mean": 0.915,
+      "cv_mae_std": 0.021,
+      "cv_r2_mean": 0.787,
+      "cv_r2_std": 0.028,
+      "test_mae": 0.965,
+      "test_rmse": 1.201,
+      "test_r2": 0.778,
+      "is_selected": false
+    },
+    {
+      "model_name": "RandomForestRegressor",
+      "cv_mae_mean": 0.917,
+      "cv_mae_std": 0.07,
+      "cv_r2_mean": 0.777,
+      "cv_r2_std": 0.039,
+      "test_mae": 0.97,
+      "test_rmse": 1.203,
+      "test_r2": 0.777,
+      "is_selected": false
+    },
+    {
+      "model_name": "GradientBoostingRegressor",
+      "cv_mae_mean": 0.911,
+      "cv_mae_std": 0.013,
+      "cv_r2_mean": 0.783,
+      "cv_r2_std": 0.028,
+      "test_mae": 1.017,
+      "test_rmse": 1.246,
+      "test_r2": 0.761,
+      "is_selected": true
+    }
+  ],
+  "feature_importances": [
+    {
+      "feature": "G2",
+      "importance": 0.9069
+    },
+    {
+      "feature": "G1",
+      "importance": 0.0184
+    },
+    {
+      "feature": "absences",
+      "importance": 0.0061
+    },
+    {
+      "feature": "reason_home",
+      "importance": 0.0048
+    },
+    {
+      "feature": "age",
+      "importance": 0.0045
+    },
+    {
+      "feature": "studytime",
+      "importance": 0.0043
+    },
+    {
+      "feature": "Fedu",
+      "importance": 0.0041
+    },
+    {
+      "feature": "famrel",
+      "importance": 0.004
+    },
+    {
+      "feature": "health",
+      "importance": 0.004
+    },
+    {
+      "feature": "traveltime",
+      "importance": 0.0037
+    },
+    {
+      "feature": "freetime",
+      "importance": 0.0028
+    },
+    {
+      "feature": "Medu",
+      "importance": 0.0025
+    },
+    {
+      "feature": "Mjob_other",
+      "importance": 0.0025
+    },
+    {
+      "feature": "higher_no",
+      "importance": 0.0021
+    },
+    {
+      "feature": "Mjob_services",
+      "importance": 0.0021
+    }
+  ],
+  "actual_vs_predicted": [
+    {
+      "actual": 10.0,
+      "predicted": 9.0,
+      "residual": 1.0
+    },
+    {
+      "actual": 13.0,
+      "predicted": 14.8,
+      "residual": -1.8
+    },
+    {
+      "actual": 11.0,
+      "predicted": 12.1,
+      "residual": -1.1
+    },
+    {
+      "actual": 8.0,
+      "predicted": 10.5,
+      "residual": -2.5
+    },
+    {
+      "actual": 12.0,
+      "predicted": 11.9,
+      "residual": 0.1
+    },
+    {
+      "actual": 7.0,
+      "predicted": 9.1,
+      "residual": -2.1
+    },
+    {
+      "actual": 8.0,
+      "predicted": 8.4,
+      "residual": -0.4
+    },
+    {
+      "actual": 8.0,
+      "predicted": 6.7,
+      "residual": 1.3
+    },
+    {
+      "actual": 16.0,
+      "predicted": 14.2,
+      "residual": 1.8
+    },
+    {
+      "actual": 13.0,
+      "predicted": 11.3,
+      "residual": 1.7
+    },
+    {
+      "actual": 12.0,
+      "predicted": 11.4,
+      "residual": 0.6
+    },
+    {
+      "actual": 9.0,
+      "predicted": 10.2,
+      "residual": -1.2
+    },
+    {
+      "actual": 12.0,
+      "predicted": 13.3,
+      "residual": -1.3
+    },
+    {
+      "actual": 6.0,
+      "predicted": 6.6,
+      "residual": -0.6
+    },
+    {
+      "actual": 10.0,
+      "predicted": 10.3,
+      "residual": -0.3
+    },
+    {
+      "actual": 8.0,
+      "predicted": 7.8,
+      "residual": 0.2
+    },
+    {
+      "actual": 10.0,
+      "predicted": 8.0,
+      "residual": 2.0
+    },
+    {
+      "actual": 10.0,
+      "predicted": 10.4,
+      "residual": -0.4
+    },
+    {
+      "actual": 8.0,
+      "predicted": 9.1,
+      "residual": -1.1
+    },
+    {
+      "actual": 13.0,
+      "predicted": 12.8,
+      "residual": 0.2
+    },
+    {
+      "actual": 8.0,
+      "predicted": 9.4,
+      "residual": -1.4
+    },
+    {
+      "actual": 10.0,
+      "predicted": 10.8,
+      "residual": -0.8
+    },
+    {
+      "actual": 10.0,
+      "predicted": 11.0,
+      "residual": -1.0
+    },
+    {
+      "actual": 15.0,
+      "predicted": 14.7,
+      "residual": 0.3
+    },
+    {
+      "actual": 12.0,
+      "predicted": 12.5,
+      "residual": -0.5
+    },
+    {
+      "actual": 11.0,
+      "predicted": 9.7,
+      "residual": 1.3
+    },
+    {
+      "actual": 12.0,
+      "predicted": 12.1,
+      "residual": -0.1
+    },
+    {
+      "actual": 10.0,
+      "predicted": 10.4,
+      "residual": -0.4
+    },
+    {
+      "actual": 11.0,
+      "predicted": 10.7,
+      "residual": 0.3
+    },
+    {
+      "actual": 12.0,
+      "predicted": 11.2,
+      "residual": 0.8
+    },
+    {
+      "actual": 12.0,
+      "predicted": 11.8,
+      "residual": 0.2
+    },
+    {
+      "actual": 11.0,
+      "predicted": 10.9,
+      "residual": 0.1
+    },
+    {
+      "actual": 10.0,
+      "predicted": 8.6,
+      "residual": 1.4
+    },
+    {
+      "actual": 8.0,
+      "predicted": 9.5,
+      "residual": -1.5
+    },
+    {
+      "actual": 10.0,
+      "predicted": 11.9,
+      "residual": -1.9
+    },
+    {
+      "actual": 11.0,
+      "predicted": 11.8,
+      "residual": -0.8
+    },
+    {
+      "actual": 10.0,
+      "predicted": 12.6,
+      "residual": -2.6
+    },
+    {
+      "actual": 13.0,
+      "predicted": 11.9,
+      "residual": 1.1
+    },
+    {
+      "actual": 14.0,
+      "predicted": 15.4,
+      "residual": -1.4
+    },
+    {
+      "actual": 8.0,
+      "predicted": 8.1,
+      "residual": -0.1
+    }
+  ]
+}

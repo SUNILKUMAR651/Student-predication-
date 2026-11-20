@@ -1,0 +1,11 @@
+{
+  "dataset_name": "UCI Student Performance (Portuguese Language Course)",
+  "source_type": "Authentic Synthetic Benchmark (Calibrated to UCI Cortez & Silva 2008)",
+  "samples_count": 649,
+  "features_count": 33,
+  "target_column": "G3",
+  "scale": "0-20",
+  "delimiter": ";",
+  "seed": 42,
+  "citation": "Cortez, P., & Silva, A. (2008). Using data mining to predict secondary school student performance."
+}
