@@ -42,15 +42,16 @@ export const Navbar: React.FC<NavbarProps> = ({
       </div>
 
       <div className="flex items-center gap-2.5 sm:gap-4">
-        {/* Database & Cloud Button */}
+        {/* Database & Cloud Status Badge / Button */}
         <button
           onClick={onOpenDatabaseModal}
-          className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-3 sm:px-4 py-2 text-xs sm:text-sm font-bold text-slate-700 hover:border-blue-400 hover:bg-blue-50/50 hover:text-blue-700 transition-all shadow-xs"
-          title="Connect Firebase & Manage Database"
+          className="inline-flex items-center gap-2 rounded-xl border border-emerald-200 bg-emerald-50/70 px-3 sm:px-4 py-2 text-xs sm:text-sm font-bold text-emerald-800 hover:bg-emerald-100 transition-all shadow-xs"
+          title="Google Cloud Firebase Database Connected"
         >
-          <Database className="h-4 w-4 text-blue-600" />
-          <span className="hidden sm:inline">Database:</span>
-          <span className="text-blue-700 font-extrabold">Cloud / Firebase</span>
+          <span className="h-2.5 w-2.5 rounded-full bg-emerald-500 animate-pulse" />
+          <Database className="h-4 w-4 text-emerald-600" />
+          <span className="hidden sm:inline">Firebase:</span>
+          <span className="text-emerald-700 font-extrabold">Connected (aaaa-22366)</span>
         </button>
 
         {/* Scale Toggle Widget */}

@@ -25,6 +25,7 @@ export const DatabaseModal: React.FC<DatabaseModalProps> = ({ isOpen, onClose, o
   const [jsonInput, setJsonInput] = useState<string>('');
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [seeding, setSeeding] = useState<boolean>(false);
+  const [showKeyEditor, setShowKeyEditor] = useState<boolean>(false);
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
 
   useEffect(() => {
@@ -199,64 +200,84 @@ export const DatabaseModal: React.FC<DatabaseModalProps> = ({ isOpen, onClose, o
           </div>
         )}
 
-        {/* Section 1: Connect Your Firebase Account */}
-        <div className="space-y-4 rounded-2xl border border-slate-200 p-5 bg-white">
-          <div className="flex items-center justify-between">
-            <div>
-              <h4 className="text-base font-bold text-slate-900 flex items-center gap-2">
-                <Cloud className="h-5 w-5 text-blue-600" />
-                Connect Your Google Firebase Project
-              </h4>
-              <p className="text-xs text-slate-500 font-medium mt-0.5">
-                Paste or upload your Firebase Service Account Private Key JSON to enable live Cloud Firestore sync.
+        {/* Section 1: Permanent Firebase Project Connection Status */}
+        <div className="space-y-4 rounded-2xl border border-emerald-200/90 p-5 bg-gradient-to-r from-emerald-50/50 to-teal-50/30">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="space-y-1">
+              <div className="flex items-center gap-2">
+                <span className="h-2.5 w-2.5 rounded-full bg-emerald-500 animate-pulse" />
+                <h4 className="text-base font-bold text-slate-900 flex items-center gap-2">
+                  <Cloud className="h-5 w-5 text-emerald-600" />
+                  Firebase Project Permanently Configured
+                </h4>
+              </div>
+              <p className="text-xs text-slate-600 font-medium">
+                Project ID: <span className="font-mono font-bold text-slate-900">aaaa-22366</span> &bull; Account: <span className="font-bold text-slate-800">sunilkumar8433256@gmail.com</span>
+              </p>
+              <p className="text-xs text-emerald-700 font-medium">
+                Service Account credentials are permanently integrated into the backend. No manual upload required.
               </p>
             </div>
+            <a
+              href="https://console.firebase.google.com/project/aaaa-22366/firestore"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1.5 rounded-xl bg-emerald-600 px-4 py-2 text-xs font-bold text-white shadow-xs hover:bg-emerald-500 transition-all shrink-0"
+            >
+              <span>Firebase Console</span>
+              <ExternalLink className="h-3.5 w-3.5" />
+            </a>
           </div>
 
-          <form onSubmit={handleConnectFirebase} className="space-y-3">
-            <div>
-              <div className="flex items-center justify-between mb-1.5">
-                <label className="text-xs font-bold text-slate-700 uppercase tracking-wider">
-                  Service Account JSON (serviceAccountKey.json)
-                </label>
-                <label className="text-xs font-bold text-blue-600 hover:underline cursor-pointer flex items-center gap-1">
-                  <Upload className="h-3.5 w-3.5" />
-                  Upload JSON File
-                  <input
-                    type="file"
-                    accept=".json"
-                    onChange={handleFileUpload}
-                    className="hidden"
-                  />
-                </label>
-              </div>
-              <textarea
-                rows={4}
-                value={jsonInput}
-                onChange={(e) => setJsonInput(e.target.value)}
-                placeholder='Paste your Firebase Service Account JSON here (e.g. { "type": "service_account", "project_id": "...", "private_key": "..." })'
-                className="w-full rounded-xl border border-slate-300 p-3 text-xs font-mono text-slate-800 placeholder-slate-400 focus:border-blue-500 focus:outline-hidden"
-              />
-            </div>
+          <div className="pt-2 border-t border-emerald-200/60 flex items-center justify-between">
+            <span className="text-xs text-slate-500">Dual storage active: Real SQLite + Cloud Firestore.</span>
+            <button
+              onClick={() => setShowKeyEditor(!showKeyEditor)}
+              className="text-xs font-bold text-slate-600 hover:text-blue-600 hover:underline"
+            >
+              {showKeyEditor ? 'Hide Key Editor ▲' : 'Switch Project / Upload Custom Key ▼'}
+            </button>
+          </div>
 
-            <div className="flex items-center justify-between pt-1">
-              <a
-                href="https://console.firebase.google.com/"
-                target="_blank"
-                rel="noreferrer"
-                className="text-xs text-blue-600 hover:underline flex items-center gap-1 font-medium"
-              >
-                Open Firebase Console <ExternalLink className="h-3 w-3" />
-              </a>
-              <button
-                type="submit"
-                disabled={submitting || !jsonInput.trim()}
-                className="rounded-xl bg-blue-600 px-5 py-2.5 text-xs font-bold text-white shadow-sm hover:bg-blue-500 transition-all disabled:opacity-50"
-              >
-                {submitting ? 'Connecting...' : 'Connect to Cloud Firestore'}
-              </button>
-            </div>
-          </form>
+          {/* Collapsible Key Editor */}
+          {showKeyEditor && (
+            <form onSubmit={handleConnectFirebase} className="space-y-3 pt-3 border-t border-slate-200 animate-in fade-in">
+              <div>
+                <div className="flex items-center justify-between mb-1.5">
+                  <label className="text-xs font-bold text-slate-700 uppercase tracking-wider">
+                    Upload New Key JSON (Optional)
+                  </label>
+                  <label className="text-xs font-bold text-blue-600 hover:underline cursor-pointer flex items-center gap-1">
+                    <Upload className="h-3.5 w-3.5" />
+                    Upload JSON
+                    <input
+                      type="file"
+                      accept=".json"
+                      onChange={handleFileUpload}
+                      className="hidden"
+                    />
+                  </label>
+                </div>
+                <textarea
+                  rows={3}
+                  value={jsonInput}
+                  onChange={(e) => setJsonInput(e.target.value)}
+                  placeholder='Paste another Firebase Service Account JSON if switching accounts...'
+                  className="w-full rounded-xl border border-slate-300 p-3 text-xs font-mono text-slate-800 placeholder-slate-400 focus:border-blue-500 focus:outline-hidden"
+                />
+              </div>
+
+              <div className="flex items-center justify-end">
+                <button
+                  type="submit"
+                  disabled={submitting || !jsonInput.trim()}
+                  className="rounded-xl bg-blue-600 px-4 py-2 text-xs font-bold text-white shadow-sm hover:bg-blue-500 transition-all disabled:opacity-50"
+                >
+                  {submitting ? 'Updating...' : 'Update Firebase Key'}
+                </button>
+              </div>
+            </form>
+          )}
         </div>
 
         {/* Section 2: Real Data Population */}

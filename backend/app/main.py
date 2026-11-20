@@ -19,6 +19,15 @@ from backend.app.database.database import init_db
 async def lifespan(app: FastAPI):
     # Startup: ensure SQLite database schema is initialized
     init_db()
+    # Ensure real authentic student records from UCI dataset are always seeded
+    try:
+        from backend.app.services.prediction_service import prediction_service
+        stats = prediction_service.get_summary_statistics()
+        if stats.get('total_predictions', 0) < 20:
+            from backend.scripts.seed_real_data import seed_database
+            seed_database(45)
+    except Exception as e:
+        print(f"[Startup] Student data init: {e}")
     yield
 
 app = FastAPI(
