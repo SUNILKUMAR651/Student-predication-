@@ -167,6 +167,20 @@ export const DatabaseModal: React.FC<DatabaseModalProps> = ({ isOpen, onClose, o
               <p className="font-bold text-blue-700 mt-0.5">{firebaseStatus?.connected ? 'Realtime Dual Sync' : 'SQLite Local Engine'}</p>
             </div>
           </div>
+
+          {firebaseStatus?.connected && (
+            <div className="pt-2">
+              <a
+                href={`https://console.firebase.google.com/project/${firebaseStatus.project_id}/firestore`}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-800 bg-emerald-100 hover:bg-emerald-200 px-3.5 py-1.5 rounded-lg border border-emerald-300 transition-colors"
+              >
+                <span>Open Cloud Firestore Console ({firebaseStatus.project_id})</span>
+                <ExternalLink className="h-3.5 w-3.5" />
+              </a>
+            </div>
+          )}
         </div>
 
         {/* Alert / Notification Feedback */}
